@@ -72,35 +72,23 @@ var build = function(xCutoff, yCutoff){
 
 	//Function for circles
 	// inside the 'build' function because it needs to use xScale... until I find a better way...
-	var makeCircle = function(circle){
+	var circleFunction = function(circle){
 		circle
 		.attr('cx', function(d){return xScale(d[settings.xVar])})
 		.attr('cy', function(d){return yScale(d[settings.yVar])})
 		.attr('r', settings.radius)
 		.style('fill', function(d){return colorScale(d.class)})
-		.attr('class', 'point')
 		}
 
-	// var moveCircle = function(circle){
-	// 	circle
-	// 	.attr('cx', function(d){return xScale(d[settings.xVar])})
-	// 	.attr('cy', function(d){return yScale(d[settings.yVar])})
-	// }
-
-	//d3.select('#plotG').selectAll('circle').remove()
-	var circles = myG.selectAll('.point')
+	d3.select('#plotG').selectAll('circle').remove()
+	var circles = myG.selectAll('circle')
 		.data(current_data)
 	
-	console.log(circles[0].length)
-
-	circles.exit().remove()
-
 	circles.enter()
 		.append('circle')
-		.call(makeCircle)
+		.call(circleFunction)
 
-	circles.transition().duration(500).call(makeCircle)
-
+	//myG.selectAll('circle').transition().duration(500).call(circleFunction)
 
 	drawLabels()
 	drawLegend()
@@ -130,7 +118,7 @@ var drawLabels = function(){
 }
 
 //legend (taken straight from your example, Mike-- but I typed it all out again myself, if that 
-// makes me any less of a plagiarist ;)
+// makes me any less of a plagiarist :/)
 var drawLegend = function(){
 
 	//get unique classes
@@ -140,7 +128,6 @@ var drawLegend = function(){
 	data.map(function(d){
 		if(classes.indexOf(d.class)== -1) classes.push(d.class)
 	})
-	console.log(classes)
 
 	//make a legend G
 	var legendG = d3.select('#my-svg')
@@ -157,4 +144,3 @@ var drawLegend = function(){
 			.attr('transform', function(d,i) {return 'translate(0, ' + i*20 + ')'})
 			.style('fill', function(d) {return colorScale(d)})
 }
-
