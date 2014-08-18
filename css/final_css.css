@@ -1,0 +1,21 @@
+
+.axis path, .axis line{
+	fill:none;
+	stroke:black;
+	shape-rendering:crispEdges;
+}
+
+.tick{
+	font-family: Arial, helvetica, sans-serif;
+}
+
+.label{
+	font-family: Arial, helvetica, sans-serif;
+	font-size: :30;
+	font-weight: bold;
+}
+
+
+#plotTitle{
+	font-size: 40;
+}
