@@ -1,0 +1,10 @@
+
+.link.active{
+	stroke: red;
+	stroke-width: 4px;
+}
+
+circle.active{
+	fill:red;
+	stroke: red;
+}
