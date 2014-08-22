@@ -8,3 +8,35 @@ circle.active{
 	fill:red;
 	stroke: red;
 }
+
+rect{
+	fill:black;
+}
+
+
+.axis path, .axis line{
+	fill:none;
+	stroke:black;
+	shape-rendering:crispEdges;
+}
+
+#radialtree{
+	width:45%;
+	float: left;
+	margin-right: 5%;
+}
+
+#barChart{
+	width:50%;
+	float: right;
+}
+
+#legend-svg{
+	float:right;
+}
+
+@media (max-width: 800px) {
+	#barChart, #radialtree {
+		width: 100%;
+	}
+}

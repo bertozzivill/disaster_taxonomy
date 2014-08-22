@@ -167,7 +167,8 @@ if (!d3) { throw "d3 wasn't included!"};
         .attr('stroke-width', '2px')
       .on('mouseover', highlightParents)
       .on('mouseout', highlightParents)
-    
+      .on('click', makeBar)
+
     vis.selectAll('g.root.node')
       .append('svg:circle')
         .attr("r", 4)
@@ -250,6 +251,14 @@ if (!d3) { throw "d3 wasn't included!"};
           .append('text')
           .text(function(d){return d})
           .attr('transform', function(d,i) {return 'translate(0, ' + (i*20+20) + ')'})
+  }
+
+
+  //on leaf node click, call the function that makes the bar charts to the right
+  var makeBar = function(d){
+    var pathway = createPathway(d)
+    var namelist = pathway.split('_')
+    buildBar(namelist)
   }
   
 ///////////////////////////////////////////
@@ -344,7 +353,8 @@ if (!d3) { throw "d3 wasn't included!"};
     var legendG = d3.select(selector)
             .append('svg')
               .attr('id', 'legend-svg')
-              .attr('transform', 'translate(' + w + ',' + '0)')
+              .attr('height', 150)
+              .attr('width', (document.getElementById('radialtree').clientWidth - document.getElementById('phylo-svg').clientWidth -4))  
             .append('g')
               .attr('class', 'label')
               .attr('id', 'legend')
@@ -378,7 +388,7 @@ if (!d3) { throw "d3 wasn't included!"};
         .attr("stroke-width", "2px")
       .on('mouseover', highlightParents)
       .on('mouseout', highlightParents)
-
+      
     d3.phylogram.styleTreeNodes(vis)
 
     
@@ -408,7 +418,7 @@ if (!d3) { throw "d3 wasn't included!"};
   d3.phylogram.buildRadial = function(selector, nodes, options) {
     options = options || {}
     var w = options.width || d3.select(selector).style('width') || d3.select(selector).attr('width'),
-        r = w / 2,
+        r = w / 2.5,
         labelWidth = options.skipLabels ? 10 : options.labelWidth || 120;
     
     var vis = d3.select(selector).append("svg:svg")

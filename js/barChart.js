@@ -5,15 +5,21 @@
 
 
 //example list 
-var typelist = ['bacterial', 'epidemic', 'biological', 'natural', 'disaster']
+// var typelist = ['bacterial', 'epidemic', 'biological', 'natural', 'disaster']
 
 var settings = {
 		yVar: 'total_affected',
-		yLabel : 'Affected Persons',
+		yLabel : 'Number Affected',
 		xPadding: 125,
 		yPadding: 20,
-		height: 500,
-		width : 600}
+		height: document.getElementById('barChart').clientWidth*(5/8),
+		width : document.getElementById('barChart').clientWidth*(.75)}
+
+var barSVG = d3.select('#barChart')
+				.append('svg')
+				.attr('id', 'bar-svg')
+				.attr('width', document.getElementById('barChart').clientWidth)
+				.attr('height', document.getElementById('barChart').clientWidth*.75)
 
 var centralG = d3.select('#bar-svg')
 				.append('g')
@@ -102,8 +108,8 @@ buildBar = function(typelist){
 				.append('text')
 				.attr('class', 'label')
 				.attr('id', 'plotTitle')
-				.attr('transform', 'translate(' + (settings.width/4 + settings.xPadding) + ',' + 25 + ')')
-				.text(settings.yLabel + ' Due to ' + subtype + ' Disasters Over Time')
+				.attr('transform', 'translate(' + (settings.width/4 + settings.xPadding) + ',' + 15 + ')')
+				.text(settings.yLabel + ' by ' + subtype + ' Disasters Over Time')
 
 	var xAxisLabel = d3.select('#bar-svg')
 					.append('text')
@@ -120,4 +126,4 @@ buildBar = function(typelist){
 
 }
 
-buildBar(typelist)
+//buildBar(typelist)
