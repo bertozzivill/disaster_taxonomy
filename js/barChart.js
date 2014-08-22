@@ -51,10 +51,12 @@ buildBar = function(typelist, subTypeName){
 	var yScale = d3.scale.linear().domain([yMin, yMax]).range([0, settings.height])
 	var yAxisScale = d3.scale.linear().domain([yMin, yMax]).range([settings.height, 0])
 
+	var xWidth = xScale(xMin+1) - xScale(xMin)
+
 	var xAxisFunction = d3.svg.axis()
 			.scale(xScale)
 			.orient('bottom')
-			.ticks(11)
+			.ticks(10)
 			.tickFormat(d3.format('d'))
 
 	var yAxisFunction = d3.svg.axis()
@@ -77,14 +79,14 @@ buildBar = function(typelist, subTypeName){
 					.attr('transform', 'translate(' + settings.xPadding + ',' + settings.yPadding + ')')
 					.call(yAxisFunction)
 
-	var scaleFactorX = (settings.width-30) / newdata.length
+	//var scaleFactorX = (settings.width-30) / newdata.length
 
 	//attributes of rectangles
 	var rectFunction = function(rect){
 		rect
-			.attr('width', scaleFactorX)
+			.attr('width', xWidth)
 			.attr('height', function(d){return yScale(d[y])})
-			.attr('x', function(d,i){return i*scaleFactorX})
+			.attr('x', function(d){return xScale(d.year)})
 			.attr('y', function(d){return settings.height - yScale(d[y])})
 			.attr('stroke', 'white')
 			.attr('stroke-width', '2px')
