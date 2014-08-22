@@ -160,7 +160,7 @@ if (!d3) { throw "d3 wasn't included!"};
   d3.phylogram.styleTreeNodes = function(vis) {
     vis.selectAll('g.leaf.node')
       .append("svg:circle")
-        .attr("r", 5)
+        .attr("r", 7)
         .attr('class', createPathway)
         .attr('stroke',  'black')
         .attr('fill', 'black')
@@ -257,8 +257,10 @@ if (!d3) { throw "d3 wasn't included!"};
   //on leaf node click, call the function that makes the bar charts to the right
   var makeBar = function(d){
     var pathway = createPathway(d)
+    var prettyNames = createNiceNames(d).split('_')
+    var subTypeName = prettyNames[0]
     var namelist = pathway.split('_')
-    buildBar(namelist)
+    buildBar(namelist, subTypeName)
   }
   
 ///////////////////////////////////////////
@@ -308,15 +310,6 @@ if (!d3) { throw "d3 wasn't included!"};
         .attr("transform", "translate(20, 20)");
 
     var nodes = tree(nodes);
-
-    var pathTween = function() {
-    var interpolate = d3.scale.quantile()
-            .domain([0,1])
-            .range(d3.range(1, data.length + 1))
-    return function(t) {
-        return data.slice(0, interpolate(t)).map(diagonal)
-    }
-  }
     
     if (options.skipBranchLengthScaling) {
       var yscale = d3.scale.linear()

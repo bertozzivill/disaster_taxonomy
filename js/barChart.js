@@ -28,7 +28,7 @@ var centralG = d3.select('#bar-svg')
 
 var y = settings.yVar
 
-buildBar = function(typelist){
+buildBar = function(typelist, subTypeName){
 
 	var subtype = typelist[0], 
 		type = typelist[1],
@@ -77,7 +77,7 @@ buildBar = function(typelist){
 					.attr('transform', 'translate(' + settings.xPadding + ',' + settings.yPadding + ')')
 					.call(yAxisFunction)
 
-	var scaleFactorX = settings.width / newdata.length
+	var scaleFactorX = (settings.width-30) / newdata.length
 
 	//attributes of rectangles
 	var rectFunction = function(rect){
@@ -109,7 +109,7 @@ buildBar = function(typelist){
 				.attr('class', 'label')
 				.attr('id', 'plotTitle')
 				.attr('transform', 'translate(' + (settings.width/4 + settings.xPadding) + ',' + 15 + ')')
-				.text(settings.yLabel + ' by ' + subtype + ' Disasters Over Time')
+				.text(settings.yLabel + ' by ' + subTypeName + ' Disasters Over Time')
 
 	var xAxisLabel = d3.select('#bar-svg')
 					.append('text')
